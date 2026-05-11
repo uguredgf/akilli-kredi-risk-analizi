@@ -1,0 +1,1 @@
+# akilli-kredi-risk-analizi
