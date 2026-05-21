@@ -16,9 +16,17 @@ for _ in range(1000):
     # 18 yaşından küçükse borç/gelir ne olursa olsun RİSKLİ (0) yapıyoruz
     if yas < 18:
         etiket = 0
-    # Borç gelirin %60'ından fazlaysa veya kredi geçmişi kötüyse RİSKLİ (0)
-    elif borc > (gelir * 0.6) or kredi_gecmisi == 0:
+    # Borç gelirin %60'ından fazlaysa RİSKLİ (0)
+    elif borc > (gelir * 0.6):
         etiket = 0
+    # Kredi geçmişi kötüyse (0):
+    elif kredi_gecmisi == 0:
+        # EĞER gelir, borcun 7 katı veya daha fazlasıysa kurtarır -> RİSKSELLİK BİTER (1)
+        if gelir >= (borc * 7):
+            etiket = 1
+        # 7 katından azsa yine RİSKLİ (0)
+        else:
+            etiket = 0
     else:
         etiket = 1
 
