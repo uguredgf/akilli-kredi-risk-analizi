@@ -1,38 +1,59 @@
-import random
 import pandas as pd
+import random
 
-# 1. Verileri tutacağımız liste
+# Bos listemizi olusturalim
 veriler = []
 
-# 2. 1000 satırlık rastgele veri üretiyoruz
-for _ in range(1000):
-    # Yaş aralığını 10'dan başlatıyoruz ki model küçük yaşları da görsün
-    yas = random.randint(10, 75)
-    gelir = random.randint(2000, 15000)
-    borc = random.randint(0, 10000)
-    kredi_gecmisi = random.choice([0, 1])  # 0: kötü, 1: iyi
+print("Ust yas siniri (70 yas ustu engeli) eklenmis veri uretimi baslatiliyor...")
 
-    # KURAL GÜNCELLEME:
-    # 18 yaşından küçükse borç/gelir ne olursa olsun RİSKLİ (0) yapıyoruz
-    if yas < 18:
+# 1000 tane ornek veri uretiyoruz
+for i in range(1000):
+    # Yas araligini tam istedigin gibi 0 ile 100 arasi yaptik
+    yas = random.randint(0, 100)
+
+    # Varsayilan etiket tanimi (PyCharm uyarisini engellemek icin)
+    etiket = 0
+
+    # Gelir araligi: 1.500 TL ile 150.000 TL arasinda
+    gelir = random.randint(1500, 150000)
+
+    # Borc araligi: 0 TL ile 50.000 TL arasinda
+    borc = random.randint(0, 50000)
+
+    # Kredi gecmisi (0: Kotu, 1: Iyi)
+    kredi_gecmisi = random.choice([0, 1])
+
+    # 🚨 CRITICAL RULE: 18 yasindan kucukse VEYA 70 yasindan buyukse kredi otomatik REDDEDILIR
+    if yas < 18 or yas > 70:
         etiket = 0
-    # Borç gelirin %60'ından fazlaysa RİSKLİ (0)
-    elif borc > (gelir * 0.6):
-        etiket = 0
-    # Kredi geçmişi kötüyse (0):
-    elif kredi_gecmisi == 0:
-        # EĞER gelir, borcun 7 katı veya daha fazlasıysa kurtarır -> RİSKSELLİK BİTER (1)
-        if gelir >= (borc * 7):
-            etiket = 1
-        # 7 katından azsa yine RİSKLİ (0)
-        else:
-            etiket = 0
+
     else:
-        etiket = 1
+        # Eger yas 18 ile 70 arasindaysa, normal kredi kurallari devreye girer:
+        if kredi_gecmisi == 1:
+            # Kredi gecmisi iyiyse (1):
+            # Borc, gelirin %45'inden kucuk veya esitse RISKSIZ (1), buyukse RISKLI (0)
+            if borc <= (gelir * 0.45):
+                etiket = 1
+            else:
+                etiket = 0
 
-    veriler.append([gelir, borc, kredi_gecmisi, yas, etiket])
+        elif kredi_gecmisi == 0:
+            # Kredi gecmisi kotuyse (0): Gelir borcun 7 kati veya fazlasiysa kurtarir (1)
+            if gelir >= (borc * 4):
+                etiket = 1
+            else:
+                etiket = 0
 
-# 3. CSV dosyası olarak kaydediyoruz
-df = pd.DataFrame(veriler, columns=["gelir", "borc", "kredi_gecmisi", "yas", "etiket"])
-df.to_csv("kredi_veri_seti.csv", index=False)
-print("1. AŞAMA TAMAM: 18 yaş sınırı kuralıyla veri seti oluşturuldu.")
+    # Uretilen bu satiri listeye ekle
+    veriler.append([yas, gelir, borc, kredi_gecmisi, etiket])
+
+# Listeyi pandas DataFrame yapisina donusturuyoruz
+df = pd.DataFrame(veriler, columns=['yas', 'gelir', 'borc', 'kredi_gecmisi', 'etiket'])
+
+# Veri setini CSV dosyasi olarak kaydediyoruz
+df.to_csv('kredi_veri_seti.csv', index=False)
+
+print("--------------------------------------------------")
+print("BASARILI: Yas araligi 0-100 yapildi, 70 yas ustu engeli eklendi!")
+print("kredi_veri_seti.csv dosyasi basariyla kaydedildi.")
+print("--------------------------------------------------")
