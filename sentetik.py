@@ -8,7 +8,7 @@ print("Ust yas siniri (70 yas ustu engeli) eklenmis veri uretimi baslatiliyor...
 
 # 1000 tane ornek veri uretiyoruz
 for i in range(1000):
-    # Yas araligini tam istedigin gibi 0 ile 100 arasi yaptik
+    # Yas araligini 0 ile 100 arasi yaptik
     yas = random.randint(0, 100)
 
     # Varsayilan etiket tanimi (PyCharm uyarisini engellemek icin)
@@ -24,11 +24,11 @@ for i in range(1000):
     kredi_gecmisi = random.choice([0, 1])
 
     # 🚨 CRITICAL RULE: 18 yasindan kucukse VEYA 70 yasindan buyukse kredi otomatik REDDEDILIR
-    if yas < 18 or yas > 70:
+    if yas < 18 or yas > 90:
         etiket = 0
 
     else:
-        # Eger yas 18 ile 70 arasindaysa, normal kredi kurallari devreye girer:
+        # Eger yas 18 ile 90 arasindaysa, normal kredi kurallari devreye girer:
         if kredi_gecmisi == 1:
             # Kredi gecmisi iyiyse (1):
             # Borc, gelirin %45'inden kucuk veya esitse RISKSIZ (1), buyukse RISKLI (0)
@@ -38,7 +38,7 @@ for i in range(1000):
                 etiket = 0
 
         elif kredi_gecmisi == 0:
-            # Kredi gecmisi kotuyse (0): Gelir borcun 7 kati veya fazlasiysa kurtarir (1)
+            # Kredi gecmisi kotuyse (0): Gelir borcun 4 kati veya fazlasiysa kurtarir (1)
             if gelir >= (borc * 4):
                 etiket = 1
             else:
@@ -54,6 +54,6 @@ df = pd.DataFrame(veriler, columns=['yas', 'gelir', 'borc', 'kredi_gecmisi', 'et
 df.to_csv('kredi_veri_seti.csv', index=False)
 
 print("--------------------------------------------------")
-print("BASARILI: Yas araligi 0-100 yapildi, 70 yas ustu engeli eklendi!")
+print("BASARILI: Yas araligi 0-100 yapildi, 90 yas ustu engeli eklendi!")
 print("kredi_veri_seti.csv dosyasi basariyla kaydedildi.")
 print("--------------------------------------------------")
