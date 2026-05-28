@@ -6,7 +6,7 @@ veriler = []
 
 print(" veri uretimi baslatiliyor...")
 
-# 1000 tane ornek veri uretiyoruz
+# 5000 tane ornek veri uretiyoruz
 for i in range(5000):
     # Yas araligini 10 ile 100 arasi yaptik
     yas = random.randint(10, 100)
