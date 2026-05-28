@@ -7,17 +7,17 @@ veriler = []
 print(" veri uretimi baslatiliyor...")
 
 # 1000 tane ornek veri uretiyoruz
-for i in range(1000):
-    # Yas araligini 0 ile 100 arasi yaptik
-    yas = random.randint(0, 100)
+for i in range(5000):
+    # Yas araligini 10 ile 100 arasi yaptik
+    yas = random.randint(10, 100)
 
-    # Varsayilan etiket tanimi (PyCharm uyarisini engellemek icin)
+
     etiket = 0
 
-    # Gelir araligi: 1.500 TL ile 150.000 TL arasinda
-    gelir = random.randint(1500, 150000)
+    # Gelir araligi
+    gelir = random.randint(20000, 75000)
 
-    # Borc araligi: 0 TL ile 50.000 TL arasinda
+    # Borc araligi
     borc = random.randint(0, 50000)
 
     # Kredi gecmisi (0: Kotu, 1: Iyi)
@@ -54,6 +54,6 @@ df = pd.DataFrame(veriler, columns=['yas', 'gelir', 'borc', 'kredi_gecmisi', 'et
 df.to_csv('kredi_veri_seti.csv', index=False)
 
 print("--------------------------------------------------")
-print("BASARILI: Yas araligi 0-100 yapildi, 80 yas ustu engeli eklendi!")
+print("BASARILI: Yas araligi 10-100 yapildi, 80 yas ustu engeli eklendi!")
 print("kredi_veri_seti.csv dosyasi basariyla kaydedildi.")
 print("--------------------------------------------------")
