@@ -6,10 +6,10 @@ veriler = []
 
 print(" veri uretimi baslatiliyor...")
 
-# 5000 tane ornek veri uretiyoruz
-for i in range(5000):
-    # Yas araligini 10 ile 100 arasi yaptik
-    yas = random.randint(10, 100)
+# 10000 tane ornek veri uretiyoruz
+for i in range(10000):
+    # Yas araligini 15 ile 90 arasi yaptik
+    yas = random.randint(15, 90)
 
 
     etiket = 0
@@ -54,6 +54,5 @@ df = pd.DataFrame(veriler, columns=['yas', 'gelir', 'borc', 'kredi_gecmisi', 'et
 df.to_csv('kredi_veri_seti.csv', index=False)
 
 print("--------------------------------------------------")
-print("BASARILI: Yas araligi 10-100 yapildi, 80 yas ustu engeli eklendi!")
 print("kredi_veri_seti.csv dosyasi basariyla kaydedildi.")
 print("--------------------------------------------------")
